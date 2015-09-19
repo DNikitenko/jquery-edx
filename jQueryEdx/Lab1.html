@@ -46,24 +46,26 @@
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
 
     <script>
-        var allCircles = $('.rating-circle');
+        $(function () {
+            var allCircles = $('.rating-circle');
 
-        allCircles.hover(function () {
-            allCircles.removeClass('rating-chosen');
-            $(this).prevAll().addBack().addClass('rating-hover');
-        });
+            allCircles.hover(function () {
+                allCircles.removeClass('rating-chosen');
+                $(this).prevAll().addBack().addClass('rating-hover');
+            });
 
-        allCircles.mouseout(function () {
-            $(this).prevAll().addBack().removeClass('rating-hover');
-            $(this).parent().children('[selected]').prevAll().addBack().addClass('rating-chosen');
-        });
+            allCircles.mouseout(function () {
+                $(this).prevAll().addBack().removeClass('rating-hover');
+                $(this).parent().children('[selected]').prevAll().addBack().addClass('rating-chosen');
+            });
 
-        allCircles.click(function () {
-            allCircles.removeAttr('selected');
-            allCircles.removeClass('rating-chosen rating-hover');
+            allCircles.click(function () {
+                allCircles.removeAttr('selected');
+                allCircles.removeClass('rating-chosen rating-hover');
 
-            $(this).attr('selected', 'true');
-            $(this).prevAll().addBack().addClass('rating-chosen');
+                $(this).attr('selected', 'true');
+                $(this).prevAll().addBack().addClass('rating-chosen');
+            });
         });
     </script>
 </body>
