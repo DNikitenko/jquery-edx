@@ -4,10 +4,12 @@
     <title>Hello jQuery</title>
 </head>
 <body>
+    <h1 ololo="bololo-asd"></h1>
+
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script>
         $(function () {
-            alert("ololo!");
+            $('h1[ololo^="bololo-a"]').text('Found bololo!');
         });
     </script>
 </body>
