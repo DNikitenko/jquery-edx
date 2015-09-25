@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <button type="button" id="add-line">Add new line</button>
+    <div id="container">
+        <div class="user-entry">
+            <label>Email:</label>
+            <input type="email" />
+            <label>Password:</label>
+            <input type="password" />
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+        var $userForm = $('.user-entry').clone();
+        $('#add-line').click(function () {
+            $('#container').append($userForm.clone());
+        });
+    </script>
+</body>
+</html>

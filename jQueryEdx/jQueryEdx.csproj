@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Clone.html" />
     <Content Include="Index.html" />
     <Content Include="Lab1.html" />
     <Content Include="packages.config" />
