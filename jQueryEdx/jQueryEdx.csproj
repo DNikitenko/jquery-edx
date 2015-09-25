@@ -60,6 +60,7 @@
     <Content Include="Clone.html" />
     <Content Include="Index.html" />
     <Content Include="Lab1.html" />
+    <Content Include="Lab2.html" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
