@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function () {
+            var worker = new Worker('Scripts/WebWorker.js');
+            worker.addEventListener('message', function (event) {
+                $('body').prepend($('<div>' + event.data + '</div>'));
+            });
+
+            worker.postMessage("kill 'em all");
+        });
+    </script>
+</body>
+</html>

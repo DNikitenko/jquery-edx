@@ -62,6 +62,8 @@
     <Content Include="Lab1.html" />
     <Content Include="Lab2.html" />
     <Content Include="packages.config" />
+    <Content Include="Scripts\WebWorker.js" />
+    <Content Include="WebWorker.html" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
