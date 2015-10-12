@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            font-family: Verdana;
+        }
+
+        h1, h2, h3 {
+            color: darkblue;
+        }
+
+        .rating-circle {
+            height: 2em;
+            width: 2em;
+            border: .1em solid black;
+            border-radius: 1.1em;
+            display: inline-block;
+            margin: 0;
+            padding: .1em;
+        }
+
+        .rating-hover {
+            background-color: yellow;
+        }
+
+        .rating-chosen {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contoso Web Developer Conference</h1>
+    <h2>Finding elements using jQuery</h2>
+    <div>This session is about identifying elements using jQuery methods and selectors.</div>
+    <h3>Rate this session</h3>
+    <div id="rating-container" max-value="5"></div>
+
+    <div>
+        <label for="max-value">Enter max value:</label>
+        <input type="text" id="max-value" />
+        <button type="button" id="update-max-value">Update max value</button>
+    </div>
+    <button type="button" id="save-rating">Save rating</button>
+    <div id="output"></div>
+
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
+
+    <script>
+        $(function () {
+            var $container = $('#rating-container');
+
+            var refreshStars = function () {
+                $container.empty();
+
+                var starsNum = $container.attr('max-value');
+                for (var i = 0; i < starsNum; ++i) {
+                    $container.append('<div class="rating-circle"></div> ');
+                }
+            };
+
+            var containerClick = function () {
+                $('.rating-circle').removeAttr('selected');
+                $('.rating-circle').removeClass('rating-chosen rating-hover');
+
+                $(this).attr('selected', 'true');
+                $(this).prevAll().addBack().addClass('rating-chosen');
+            };
+
+            var containerHover = function() {
+                $('.rating-circle').removeClass('rating-chosen');
+                $(this).prevAll().addBack().addClass('rating-hover');
+            };
+
+            var containerMouseLeave = function() {
+                $(this).prevAll().addBack().removeClass('rating-hover');
+                $(this).parent().children('[selected]').prevAll().addBack().addClass('rating-chosen');
+            };
+
+            var setupAjaxHandling = function () {
+                $('#save-rating').click(function () {
+                    $(document).ajaxSend(function () {
+                        $('button').attr('disabled', 'disabled');
+                    }).ajaxComplete(function () {
+                        $('button').removeAttr('disabled');
+                    });
+
+                    var selectedElement = $('[selected]');
+                    var selectedElementIndex = $('.rating-circle').index(selectedElement)
+
+                    if (selectedElementIndex === -1) {
+                        $('#output').text('Please, rate this session first');
+                        return;
+                    }
+
+                    var currentRating = selectedElementIndex + 1;
+                    var maxRating = $container.attr('max-value');
+
+                    $.post('http://jquery-edx.azurewebsites.net/api/Rating', { value: currentRating, maxValue: maxRating })
+                        .done(function (data) {
+                            $('#output').text(data.message);
+                        })
+                });
+            };
+
+            refreshStars();
+
+            $('#update-max-value').click(function () {
+                var newStarsNum = $('#max-value').val();
+                $container.attr('max-value', newStarsNum);
+
+                refreshStars();
+            });
+
+            $container.on({
+                click: containerClick,
+                mouseenter: containerHover,
+                mouseleave: containerMouseLeave
+            }, '.rating-circle');
+
+            setupAjaxHandling();
+        });
+    </script>
+</body>
+</html>
